@@ -13,6 +13,8 @@ class CianSpiderSpider(scrapy.Spider):
             '//*[@id="frontend-offer-card"]/div/div[2]/div[2]/div[4]/div[2]/div[2]/span[2]/text()').get()
         address = response.xpath(
             '//*[@id="frontend-offer-card"]/div/div[2]/div[2]/section/div/div/div[2]/address/div/div/a[4]/text()').get()
-        price = None
+        price = response.xpath(
+            '//*[@id="frontend-offer-card"]/div/div[2]/div[3]/div/div[1]/div[1]/div[4]/div/div[1]/span/text()').get()
+        id_url = self.start_urls[0].split('/')[-2]
 
-        print(f"{title}, {space}, {floor}, {address}")
+        print(f"{title}, {space}, {floor}, {address}, {price}, {id_url}")

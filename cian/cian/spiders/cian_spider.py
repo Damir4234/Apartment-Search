@@ -22,7 +22,8 @@ class CianSpiderSpider(scrapy.Spider):
     def parse_flat(self, response):
 
         title = response.css('.a10a3f92e9--title--vlZwT::text').get()
-        space = response.css('.a10a3f92e9--color_black_100--Ephi7 a10a3f92e9--lineHeight_6u--cedXD a10a3f92e9--fontWeight_normal--JEG_c a10a3f92e9--fontSize_16px--QNYmt a10a3f92e9--display_block--KYb25 a10a3f92e9--text--e4SBY a10a3f92e9--text_letterSpacing__0--cQxU5::text').get()
+        space = response.css(
+            '.a10a3f92e9--item--Jp5Qv:nth-child(1) .a10a3f92e9--fontSize_16px--QNYmt::text').get()
         floor = response.xpath(
             '//*[@id="frontend-offer-card"]/div/div[2]/div[2]/div[3]/div[4]/div[2]/span[2]/text()').get()
         address = response.xpath(
@@ -30,6 +31,15 @@ class CianSpiderSpider(scrapy.Spider):
         price = response.xpath(
             '//*[@id="frontend-offer-card"]/div/div[2]/div[3]/div/div[1]/div[1]/div[4]/div/div[1]/span/text()').get()
         id_url = response.url.split('/')[-2]
+
+        floor_elements = response.css('.a10a3f92e9--item--Jp5Qv')
+        floor = None
+        for element in floor_elements:
+            label = element.css('.a10a3f92e9--text--eplgM span::text').get()
+            if label == 'Этаж':
+                floor = element.css(
+                    '.a10a3f92e9--text--eplgM span:nth-child(2)::text').get()
+                break
 
         yield {
             'title': title,

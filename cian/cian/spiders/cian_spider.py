@@ -29,7 +29,7 @@ class CianSpiderSpider(scrapy.Spider):
         address = response.xpath(
             '//*[@id="frontend-offer-card"]/div/div[2]/div[2]/section/div/div/div[2]/address/div/div/a[4]/text()').get()
         price = response.xpath(
-            '//*[@id="frontend-offer-card"]/div/div[2]/div[3]/div/div[1]/div[1]/div[4]/div/div[1]/span/text()').get()
+            '//div[@data-testid="price-amount"]/span/text()').get()
         id_url = response.url.split('/')[-2]
 
         floor_elements = response.css('.a10a3f92e9--item--Jp5Qv')
